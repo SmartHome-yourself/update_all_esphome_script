@@ -1,0 +1,150 @@
+timer:
+  esphome_updates_timer:
+    duration: "00:20:00"
+
+
+template:
+  - binary_sensor:
+      - name: "Update Info"
+        state: >-
+          {{ states.update | 
+             selectattr('state', 'eq', 'on') | 
+             map(attribute='entity_id') | 
+             select('in', integration_entities('esphome')) | 
+             list | count > 0 }}
+        attributes:
+          all_updates: >-
+            {{ states.update | 
+               selectattr('state', 'eq', 'on') | 
+               map(attribute='entity_id') | 
+               select('in', integration_entities('esphome')) | 
+               list }}
+          anzahl: >-
+            {{ state_attr("binary_sensor.update_info", "all_updates") 
+               | count
+            }}    
+
+
+script:
+
+# ------------------------------------
+# Alle ESPHome Geräte updaten
+# ------------------------------------
+  update_all_esphome_devices:
+    alias: "Alle ESPHome Geräte updaten"
+    description: "Aktualisiert alle ESPHome Geräte bei denen die Version nicht mehr aktuell ist"
+    fields:
+      notifier:
+        description: "Zu verwendender Notify-Dienst"
+        example: "notify.mobile_app_YOUR_PHONE_HERE"
+    
+    sequence:
+      - alias: Update all ESPHome devices in sequence
+        repeat:
+          for_each: >-
+            {{ state_attr("binary_sensor.update_info", "all_updates") }}
+          sequence:
+            - service: timer.start
+              data:
+                duration: 0
+              target:
+                entity_id: "timer.esphome_updates_timer"
+    
+            - service: script.turn_on
+              target:
+                entity_id: script.update_esphome_device
+              data:
+                variables:
+                  esphome_device: "{{ repeat.item }}"
+                  notifier: "{{ notifier }}"
+    
+            - delay: "00:00:10"
+
+            - wait_template: "{{ (not state_attr(repeat.item , 'in_progress') and not is_state( repeat.item , 'unavailable') )  or is_state('timer.esphome_updates_timer', 'idle') }}"
+
+            - delay: "00:00:10"
+    
+            - if:
+                - condition: state
+                  entity_id: "timer.esphome_updates_timer"
+                  state: "idle"
+              then:
+                - service: script.turn_off
+                  data_template:
+                    entity_id: "{{ repeat.item }}"
+    
+                - service: persistent_notification.create
+                  data:
+                    message: "{{ repeat.item }}"
+                    title: "ESPHome Device Update abgebrochen"
+                    
+              else:
+                - service: timer.cancel
+                  data: {}
+                  target:
+                    entity_id: "timer.esphome_updates_timer"
+    
+            - delay: "00:00:01"
+            
+            
+# ------------------------------------
+# Update eines bestimmten ESPHome Gerätes
+# ------------------------------------
+  update_esphome_device:
+    alias: "ESPHome Geräte Update"
+    fields:
+      esphome_device:
+        description: "Zu updatendes ESPHome Gerät"
+        example: "update.esp32_bluetooth_proxy_299fcc_firmware"
+      notifier:
+        description: "Zu verwendender Notify-Dienst"
+        example: "notify.mobile_app_YOUR_PHONE_HERE
+    mode: restart
+    
+    sequence:
+      - service: "{{ notifier }}"
+        data:
+          title: "ESPHome Device Update"
+          message: >-
+            {{esphome_device}}  wird jetzt von V{{
+            state_attr(esphome_device,
+            "installed_version") }} auf V{{
+            state_attr(esphome_device,
+            "latest_version") }} aktualisiert.
+    
+      - service: update.install
+        target:
+          entity_id: "{{ esphome_device }}"
+      
+      - delay: "00:00:01"
+    
+      - wait_template: "{{ (not state_attr(esphome_device , 'in_progress') and not is_state( esphome_device , 'unavailable') )  }}"
+    
+      - delay: "00:00:01"
+    
+      - if:
+          - condition: template
+            value_template: "{{ is_state( esphome_device , 'off') }}"
+        then:
+          - service: "{{ notifier }}"
+            data:
+              title: "Update Erfolgreich"
+              message: >-
+                {{ esphome_device }} wurde aktualisiert auf V{{
+                state_attr(esphome_device,
+                "installed_version") }}.
+        else:
+          - service: persistent_notification.create
+            data:
+              title: "FEHLER: ESPHome Device Update"
+              message: >-
+                Update von {{ esphome_device }} fehlgeschlagen!
+    
+          - service: "{{ notifier }}"
+            data:
+              title: "FEHLER: ESPHome Device Update"
+              message: >-
+                Update von {{ esphome_device }} fehlgeschlagen!
+
+
+
