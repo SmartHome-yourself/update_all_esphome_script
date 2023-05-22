@@ -2,8 +2,11 @@
 Bei diesem Projekt handelt es sich um ein Script für Home Assistant, mit dem sich alle ESPHome Projekte automatisch nacheinander aktualisieren lassen. 
 Der Vorteil gegenüber dem "Update All" Button in der ESPHome Oberfläche ist, dass die Updates hier im Hintergrund erfolgen.  
   
+## Video zum Script
+[<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/f923b9ea-fc8e-4458-85fa-de6fd98ed0aa" width="300px">](https://youtu.be/Ob49k5rt9gQ "ESPHome Update Script für Home Assistant")
+
   
-### Fehler beim Update   
+## Fehler beim Update   
 Sollte beim Update eines ESPHome Projektes ein Fehler auftreten, wird dieser in den Home Assistant-Benachrichtigungen hinterlegt.   
 [<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/615769f2-4852-423d-834c-199b1d80c86c" width="600px">](https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/615769f2-4852-423d-834c-199b1d80c86c)   
    
@@ -13,7 +16,7 @@ Der Inhalt der Datei `update_all_esphome_script.yaml` kann als [Package-Datei in
 Wer keine Packages nutzt, muss die Inhalte entsprechend [in seiner configuration.yaml integrieren](https://www.youtube.com/watch?v=9LEoRc30LMU).
    
    
-# Aufruf des Scripts (als Dienstaufruf für z.B. Automatisierungen oder Tap-Actions)   
+### Aufruf des Scripts (als Dienstaufruf für z.B. Automatisierungen oder Tap-Actions)   
 ```
 service: script.update_all_esphome_devices
 data:
@@ -21,7 +24,7 @@ data:
 ```   
    
    
-# Button Beispiel   
+### Button Beispiel   
 Das Update-Script lässt sich bequem über einen Button starten.   
 So kann man darüber mit einem Klick all seine ESPHome Geräte im Hintergrund nacheinander aktualisieren lassen.   
       
