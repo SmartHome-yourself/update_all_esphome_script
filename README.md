@@ -4,8 +4,11 @@ Der Vorteil gegenüber dem "Update All" Button in der ESPHome Oberfläche ist, d
   
 
 ## Video zum Script
-[<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/15e4fb74-1c68-4744-8d16-2633c870a18c" width="500px">](https://www.youtube.com/watch?v=Ob49k5rt9gQ)
+Natürlich habe ich zu dem Projekt auch wie immer ein Video erstellt:  
+[![ESPHome Update Script](http://img.youtube.com/vi/Ob49k5rt9gQ/0.jpg)](https://www.youtube.com/watch?v=Ob49k5rt9gQ "ESPHome Update Script für Home Assistant")
+
   
+
 ## Fehler beim Update   
 Sollte beim Update eines ESPHome Projektes ein Fehler auftreten, wird dieser in den Home Assistant-Benachrichtigungen hinterlegt.   
 [<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/615769f2-4852-423d-834c-199b1d80c86c" width="600px">](https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/615769f2-4852-423d-834c-199b1d80c86c)   
