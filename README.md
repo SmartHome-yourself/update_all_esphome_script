@@ -12,8 +12,8 @@ Sollte beim Update eines ESPHome Projektes ein Fehler auftreten, wird dieser in 
    
    
 # Einrichtung   
-Der Inhalt der Datei `update_all_esphome_script.yaml` kann als [Package-Datei in die Home Assistant Config](https://www.youtube.com/watch?v=wZ1Qd0wDY8Y) übernommen werden. (empfohlen)
-Wer keine Packages nutzt, muss die Inhalte entsprechend [in seiner configuration.yaml integrieren](https://www.youtube.com/watch?v=9LEoRc30LMU).
+Der Inhalt der Datei `update_all_esphome_script.yaml` kann als [Package-Datei in die Home Assistant Config](https://www.youtube.com/watch?v=wZ1Qd0wDY8Y) übernommen werden. (empfohlen)   
+Wer keine Packages nutzt, muss die Inhalte entsprechend [in seiner configuration.yaml integrieren](https://www.youtube.com/watch?v=9LEoRc30LMU).   
    
    
 ### Aufruf des Scripts (als Dienstaufruf für z.B. Automatisierungen oder Tap-Actions)   
