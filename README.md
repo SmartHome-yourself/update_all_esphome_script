@@ -4,7 +4,7 @@ Der Vorteil gegenüber dem "Update All" Button in der ESPHome Oberfläche ist, d
   
 
 ## Video zum Script
-[<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/15e4fb74-1c68-4744-8d16-2633c870a18c" width="300px">](https://youtu.be/Ob49k5rt9gQ "ESPHome Update Script für Home Assistant")
+[<img src="https://github.com/SmartHome-yourself/update_all_esphome_script/assets/705724/15e4fb74-1c68-4744-8d16-2633c870a18c" width="500px">](https://youtu.be/Ob49k5rt9gQ "ESPHome Update Script für Home Assistant")
 
   
 ## Fehler beim Update   
