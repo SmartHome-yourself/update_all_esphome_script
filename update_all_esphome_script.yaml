@@ -98,7 +98,7 @@ script:
         example: "update.esp32_bluetooth_proxy_299fcc_firmware"
       notifier:
         description: "Zu verwendender Notify-Dienst"
-        example: "notify.mobile_app_YOUR_PHONE_HERE
+        example: "notify.mobile_app_YOUR_PHONE_HERE"
     mode: restart
     
     sequence:
