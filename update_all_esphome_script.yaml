@@ -120,7 +120,7 @@ script:
     
       - wait_template: "{{ (not state_attr(esphome_device , 'in_progress') and not is_state( esphome_device , 'unavailable') )  }}"
     
-      - delay: "00:00:01"
+      - delay: "00:00:30"
     
       - if:
           - condition: template
